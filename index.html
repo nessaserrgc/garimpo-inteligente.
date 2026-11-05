@@ -54,6 +54,19 @@
         <select id="platformFilter" aria-label="Filtrar plataforma"><option value="">Todas as plataformas</option><option>Shopee</option><option>Mercado Livre</option><option>Amazon</option><option>TikTok Shop</option></select>
         <select id="statusFilter" aria-label="Filtrar status"><option value="">Todos os status</option><option value="selected">Pontuação alta</option><option value="review">Em análise</option><option value="incomplete">Dados insuficientes</option></select>
       </div>
+      <section class="form-card" aria-labelledby="copy-title">
+        <p class="eyebrow">CONTEÚDO PARA SEUS CANAIS</p>
+        <h3 id="copy-title">Criar divulgação humanizada</h3>
+        <div class="form-grid">
+          <label class="wide">Escolha um produto cadastrado<select id="copyProduct"><option value="">Selecione um produto</option></select></label>
+        </div>
+        <div class="product-actions">
+          <button id="generateCopy" class="button button-primary" type="button">Gerar mensagem</button>
+          <button id="copyMessage" class="button button-light" type="button">Copiar mensagem</button>
+        </div>
+        <label class="wide">Mensagem pronta para revisar<textarea id="copyOutput" rows="6" placeholder="A mensagem gerada aparecerá aqui. Revise antes de publicar."></textarea></label>
+        <p class="form-note">O texto destaca o produto e o preço informado, sem inventar desconto, avaliação ou experiência de uso. Confira se o link é seu link de afiliado antes de compartilhar.</p>
+      </section>
       <div id="emptyState" class="empty-state"><span>✦</span><h3>Seu garimpo começa aqui</h3><p>Cadastre o primeiro produto para começar a comparar oportunidades.</p></div>
       <div id="productList" class="product-list"></div>
     </section>
