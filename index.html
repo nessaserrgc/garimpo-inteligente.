@@ -39,7 +39,9 @@
         <div class="form-grid">
           <label>Nome do produto<input name="name" required maxlength="120" placeholder="Ex.: organizador de cozinha"></label>
           <label>Plataforma<select name="platform" required><option value="Shopee">Shopee</option><option value="Mercado Livre">Mercado Livre</option><option value="Amazon">Amazon</option><option value="TikTok Shop">TikTok Shop</option></select></label>
-          <label>Preço (R$)<input name="price" type="number" min="0" step="0.01" required placeholder="49,90"></label>
+          <label>Preço atual (R$)<input name="price" type="number" min="0" step="0.01" required placeholder="49,90"></label>
+          <label>Preço anterior (R$)<input name="originalPrice" type="number" min="0" step="0.01" placeholder="Ex.: 79,90"></label>
+          <label>Cupom (opcional)<input name="coupon" maxlength="40" placeholder="Ex.: ECONOMIA10"></label>
           <label>Comissão estimada (%)<input name="commissionRate" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 8"></label>
           <label>Vendas / popularidade<input name="popularity" type="number" min="0" max="100" placeholder="Nota de 0 a 100"></label>
           <label>Avaliações / reputação<input name="rating" type="number" min="0" max="100" placeholder="Nota de 0 a 100"></label>
@@ -65,7 +67,7 @@
           <button id="copyMessage" class="button button-light" type="button">Copiar mensagem</button>
         </div>
         <label class="wide">Mensagem pronta para revisar<textarea id="copyOutput" rows="6" placeholder="A mensagem gerada aparecerá aqui. Revise antes de publicar."></textarea></label>
-        <p class="form-note">O texto destaca o produto e o preço informado, sem inventar desconto, avaliação ou experiência de uso. Confira se o link é seu link de afiliado antes de compartilhar.</p>
+        <p class="form-note">O gerador só calcula desconto quando você informa um preço anterior maior que o atual. Inclua apenas cupons válidos e confirme as condições na loja antes de publicar.</p>
       </section>
       <div id="emptyState" class="empty-state"><span>✦</span><h3>Seu garimpo começa aqui</h3><p>Cadastre o primeiro produto para começar a comparar oportunidades.</p></div>
       <div id="productList" class="product-list"></div>
