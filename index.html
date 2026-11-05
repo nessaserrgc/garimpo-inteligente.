@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Central própria para garimpo, seleção e acompanhamento de produtos afiliados.">
+  <title>Garimpo Inteligente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">G</span><span>Garimpo <b>Inteligente</b></span></a>
+    <span class="local-tag">MVP • dados neste dispositivo</span>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div><p class="eyebrow">SUA CENTRAL DE AFILIADOS</p><h1>Encontre produtos que <em>merecem</em> divulgação.</h1><p class="hero-copy">Organize oportunidades, compare potencial e acompanhe resultados sem pagar outra plataforma.</p></div>
+      <div class="hero-orb" aria-hidden="true">✦</div>
+    </section>
+    <section class="stats" aria-label="Resumo">
+      <article class="stat"><span>Produtos cadastrados</span><strong id="totalProducts">0</strong></article>
+      <article class="stat"><span>Selecionados para divulgar</span><strong id="selectedProducts">0</strong></article>
+      <article class="stat"><span>Cliques registrados</span><strong id="totalClicks">0</strong></article>
+      <article class="stat"><span>Comissão registrada</span><strong id="totalCommission">R$ 0,00</strong></article>
+    </section>
+    <section class="workspace">
+      <div class="section-heading"><div><p class="eyebrow">BANCO DE OPORTUNIDADES</p><h2>Seus produtos</h2></div><button id="exportCsv" class="button button-light" type="button">Exportar CSV</button></div>
+      <form id="productForm" class="form-card">
+        <h3>Adicionar produto</h3>
+        <div class="form-grid">
+          <label>Nome do produto<input name="name" required maxlength="120" placeholder="Ex.: organizador de cozinha"></label>
+          <label>Plataforma<select name="platform" required><option value="Shopee">Shopee</option><option value="Mercado Livre">Mercado Livre</option><option value="Amazon">Amazon</option><option value="TikTok Shop">TikTok Shop</option></select></label>
+          <label>Preço (R$)<input name="price" type="number" min="0" step="0.01" required placeholder="49,90"></label>
+          <label>Comissão estimada (%)<input name="commissionRate" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 8"></label>
+          <label>Vendas / popularidade<input name="popularity" type="number" min="0" max="100" placeholder="Nota de 0 a 100"></label>
+          <label>Avaliações / reputação<input name="rating" type="number" min="0" max="100" placeholder="Nota de 0 a 100"></label>
+          <label class="wide">Link de afiliado<input name="url" type="url" placeholder="https://..."></label>
+          <label class="wide">Observações<textarea name="notes" rows="2" placeholder="Desconto, diferencial, público, fonte..."></textarea></label>
+        </div>
+        <button class="button button-primary" type="submit">Adicionar ao garimpo</button>
+        <p class="form-note">A pontuação é uma triagem inicial com base nos dados que você inserir; não representa garantia de vendas.</p>
+      </form>
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="Buscar produto..." aria-label="Buscar produto">
+        <select id="platformFilter" aria-label="Filtrar plataforma"><option value="">Todas as plataformas</option><option>Shopee</option><option>Mercado Livre</option><option>Amazon</option><option>TikTok Shop</option></select>
+        <select id="statusFilter" aria-label="Filtrar status"><option value="">Todos os status</option><option value="selected">Selecionados</option><option value="review">Em análise</option></select>
+      </div>
+      <div id="emptyState" class="empty-state"><span>✦</span><h3>Seu garimpo começa aqui</h3><p>Cadastre o primeiro produto para começar a comparar oportunidades.</p></div>
+      <div id="productList" class="product-list"></div>
+    </section>
+    <footer>Garimpo Inteligente • versão inicial • seus registros ficam salvos neste navegador.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
