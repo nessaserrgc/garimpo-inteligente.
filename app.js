@@ -25,6 +25,10 @@ function render(){
   $("#totalClicks").textContent=products.reduce((sum,p)=>sum+(Number(p.clicks)||0),0);
   $("#totalCommission").textContent=money(products.reduce((sum,p)=>sum+(Number(p.commission)||0),0));
   $("#emptyState").hidden=products.length>0;
+  const copySelect=$("#copyProduct");
+  const selectedCopyId=copySelect.value;
+  copySelect.innerHTML='<option value="">Selecione um produto</option>'+products.map(p=>'<option value="'+escapeAttr(p.id)+'">'+escapeHtml(p.name)+' — '+escapeHtml(p.platform)+'</option>').join("");
+  if(products.some(p=>p.id===selectedCopyId))copySelect.value=selectedCopyId;
   $("#productList").innerHTML=visible.map(p=>`<article class="product-card"><div><h3>${escapeHtml(p.name)}</h3><div class="meta"><span>${escapeHtml(p.platform)}</span><span>${money(p.price)}</span><span>Comissão estimada: ${Number(p.commissionRate||0)}%</span><span>Cliques: ${Number(p.clicks)||0}</span></div><div class="product-actions">${p.url?`<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer">Abrir link</a>`:""}<button data-action="click" data-id="${p.id}">+1 clique</button><button data-action="commission" data-id="${p.id}">Registrar comissão</button><button data-action="delete" data-id="${p.id}" class="danger">Excluir</button></div></div><div class="score">${p.score===null?"—/100":p.score+"/100"}<small>${statusFor(p)==="selected"?"PONTUAÇÃO ALTA":statusFor(p)==="incomplete"?"DADOS INSUFICIENTES":"EM ANÁLISE"}</small></div></article>`).join("");
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -48,6 +52,32 @@ $("#productList").addEventListener("click",event=>{
   save();
 });
 ["searchInput","platformFilter","statusFilter"].forEach(id=>$("#"+id).addEventListener("input",render));
+$("#generateCopy").addEventListener("click",()=>{
+  const product=products.find(p=>p.id===$("#copyProduct").value);
+  if(!product){alert("Cadastre ou selecione um produto primeiro.");return;}
+  const price=money(product.price);
+  const link=String(product.url||"").trim();
+  const openings=[
+    "Olha essa opção que encontrei:",
+    "Garimpei uma opção que pode valer a pena conferir:",
+    "Dica de economia do dia:",
+    "Pra quem está procurando isso, vale dar uma olhada:"
+  ];
+  const benefits=[
+    "Confira os detalhes e veja se faz sentido pra você.",
+    "Vale comparar as informações antes de decidir.",
+    "Dá uma olhadinha nas características e no preço."
+  ];
+  const pick=(items)=>items[Math.floor(Math.random()*items.length)];
+  const message=pick(openings)+"\n\n🛍️ "+product.name+"\n💰 "+price+"\n\n"+pick(benefits)+(link?"\n\n🔗 Confira aqui: "+link:"\n\nAdicione seu link de afiliado antes de publicar.")+"\n\n*Preço e disponibilidade podem mudar conforme a loja.*";
+  $("#copyOutput").value=message;
+});
+$("#copyMessage").addEventListener("click",async()=>{
+  const output=$("#copyOutput");
+  if(!output.value.trim()){alert("Gere uma mensagem antes de copiar.");return;}
+  try{await navigator.clipboard.writeText(output.value);alert("Mensagem copiada! Revise antes de publicar.");}
+  catch{output.select();alert("Selecione o texto e copie com Ctrl+C.");}
+});
 $("#exportCsv").addEventListener("click",()=>{
   const header=["Produto","Plataforma","Preço","Comissão estimada (%)","Pontuação","Cliques","Comissão recebida","Link"];
   const rows=products.map(p=>[p.name,p.platform,p.price,p.commissionRate,p.score,p.clicks,p.commission,p.url]);
